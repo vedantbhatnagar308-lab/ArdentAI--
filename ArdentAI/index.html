@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ArdentAI Big Mind</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+        #reply {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🤖 ArdentAI Big Mind</h1>
+
+<input id="text" placeholder="Ask me anything..." />
+<button onclick="askAI()">Ask</button>
+
+<div id="reply"></div>
+
+<script>
+function askAI() {
+    const text = document.getElementById("text").value;
+
+    fetch("http://127.0.0.1:5000/ai", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ text: text })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("reply").innerText = data.reply;
+    });
+}
+</script>
+
+</body>
+</html>
